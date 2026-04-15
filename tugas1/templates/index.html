@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I love coffee</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Coffee is important for your life, dont forget to drink some!</h2>
+        <h1>Here's your meme!</h1>
+        <img id="meme-img" src="" alt="Meme">
+    </div>
+
+    <script>
+        async function fetchMeme() {
+            try {
+                const response = await fetch('/api/meme');
+                const data = await response.json();
+                document.getElementById('meme-img').src = data.url;
+                document.getElementById("meme-img").alt = data.name;
+            } catch (error) {
+                console.error('Error fetching meme:', error);
+            }
+        }
+        fetchMeme();
+        setInterval(fetchMeme, 5000);
+    </script>
+</body>
+</html>
